@@ -2,6 +2,9 @@
 
 [🇻🇳 Vietnamese Version](./README_VN.md)
 
+![image](https://github.com/user-attachments/assets/d78b7f39-0849-4fa1-8e73-4c430a354b9d)
+
+
 A cyberpunk-themed portfolio website built with React and Tailwind CSS. This project aims to create an immersive and interactive experience for showcasing your GitHub projects and profile in a unique cyberpunk style.
 
 ## ⚡ Features
