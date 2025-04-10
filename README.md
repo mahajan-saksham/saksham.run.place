@@ -86,4 +86,20 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Community feedback and contributions
 
 ---
+
 ⚡ Created by [Nahvine](https://github.com/Nahvine)
+
+---
+
+## ☕ Support My Work
+
+If you like this project or find it helpful, consider buying me a coffee.  
+Your support helps me keep building cool stuff for the community 💻✨
+
+**Bitcoin (BTC) Address**  
+`3A5Aj5yiZhSgpAWpNHQSfFbGAgjpQosXjH`
+
+Thank you! 🙌
+
+---
+
