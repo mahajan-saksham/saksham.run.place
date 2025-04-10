@@ -1,6 +1,6 @@
 # Cyberpunk Portfolio (Beta)
 
-[🇻🇳 Vietnamese Version](./README_VN.md)
+[Vietnamese Version](./README_VN.md)
 
 ![image](https://github.com/user-attachments/assets/d78b7f39-0849-4fa1-8e73-4c430a354b9d)
 
