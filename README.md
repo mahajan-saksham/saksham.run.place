@@ -85,8 +85,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Built with modern web technologies
 - Community feedback and contributions
 
----
-
 ⚡ Created by [Nahvine](https://github.com/Nahvine)
 
 ---
