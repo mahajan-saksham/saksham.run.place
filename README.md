@@ -97,6 +97,9 @@ Your support helps me keep building cool stuff for the community 💻✨
 **Bitcoin (BTC) Address**  
 `3A5Aj5yiZhSgpAWpNHQSfFbGAgjpQosXjH`
 
+<img src="https://github.com/user-attachments/assets/c0ba0ba5-8c07-407e-ad35-3f68b6e1a639" width="225" />
+
+
 Thank you! 🙌
 
 ---
