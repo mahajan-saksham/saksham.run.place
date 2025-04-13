@@ -1,106 +1,116 @@
-# Cyberpunk Portfolio (Beta)
+# 🎮 Cyberpunk Portfolio
 
-[Vietnamese Version](./README_VN.md)
+![Cyberpunk Portfolio](public/preview.png)
 
-![image](https://github.com/user-attachments/assets/d78b7f39-0849-4fa1-8e73-4c430a354b9d)
+> Một portfolio website với giao diện hệ điều hành kiểu Cyberpunk, được xây dựng bằng React và Tailwind CSS.
 
+## ✨ Tính năng
 
-A cyberpunk-themed portfolio website built with React and Tailwind CSS. This project aims to create an immersive and interactive experience for showcasing your GitHub projects and profile in a unique cyberpunk style.
+- 🖥️ Giao diện hệ điều hành Cyberpunk với các cửa sổ có thể kéo thả
+- 🎮 Terminal tương tác với các lệnh thực tế
+- 🌓 Chế độ Hacker với hiệu ứng CRT và màu sắc thay đổi
+- 📱 Responsive trên mọi thiết bị
+- 🎨 Hiệu ứng neon và animation mượt mà
+- 🔄 Tích hợp dữ liệu GitHub realtime
+- 🎯 Taskbar với các cửa sổ đang mở
+- 🚀 Start Menu với các ứng dụng
 
-## ⚡ Features
+## 🚀 Cài đặt
 
-- 🎨 Cyberpunk-inspired design with neon effects
-- 🖥️ Terminal-like interface
-- 📱 Responsive layout
-- 🔄 Real-time GitHub data integration
-- 🎮 Interactive windows system
-- 🌓 Hacker mode toggle
-- 🔍 Project showcase with detailed views
-- 📄 CV display from GitHub README
-- 🎯 Smooth animations and transitions
-
-## 🚀 Getting Started
-
-1. Clone the repository:
+1. Clone repository:
 ```bash
-git clone https://github.com/Nahvine/portfolio_cyperpunk.git
-cd portfolio_cyperpunk
+git clone https://github.com/Nahvine/portfolio_cyberpunk.git
+cd portfolio_cyberpunk
 ```
 
-2. Install dependencies:
+2. Cài đặt dependencies:
 ```bash
 npm install
 ```
 
-3. Start the development server:
+3. Chạy development server:
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:5173](http://localhost:5173) in your browser
+4. Build cho production:
+```bash
+npm run build
+```
 
-## 🛠️ Built With
+## 🛠️ Công nghệ sử dụng
 
-- React
-- Tailwind CSS
-- Framer Motion
-- TypeScript
-- Vite
+- ⚛️ React 18
+- 🎨 Tailwind CSS
+- 🎭 Framer Motion
+- 📦 Vite
+- 🎵 Howler.js
+- 🔄 React RND
+- 📱 React Icons
 
-## 🎮 How to Use
+## 🎮 Hướng dẫn sử dụng
 
-1. Enter your GitHub username in the Profile.exe window
-2. Your GitHub profile information will be automatically loaded
-3. Navigate through different windows:
-   - Terminal.exe: Interactive command line interface
-   - Projects.exe: Showcase of your GitHub projects
-   - CV.exe: Your GitHub profile README
-   - Profile.exe: GitHub profile statistics
+1. **Terminal**: 
+   - Gõ `help` để xem danh sách lệnh
+   - Sử dụng `clear` để xóa màn hình
+   - `hack` để bật/tắt chế độ Hacker
 
-## ⚠️ Beta Notice
+2. **Cửa sổ**:
+   - Kéo thanh tiêu đề để di chuyển
+   - Nút vàng để minimize
+   - Nút hồng để đóng
+   - Click để đưa lên trên cùng
 
-This project is currently in beta. While it's fully functional, you might encounter minor issues. Known limitations:
+3. **Taskbar**:
+   - Click vào icon để mở/đóng Start Menu
+   - Click vào cửa sổ đã minimize để mở lại
+   - Hiển thị các cửa sổ đang mở
 
-- Some UI elements might need refinement
-- Performance optimizations pending
-- Additional features planned for future releases
+## 🌟 Tính năng đặc biệt
 
-## 🤝 Contributing
+- **Chế độ Hacker**: 
+  - Bật/tắt bằng `Ctrl + H`
+  - Hiệu ứng CRT scanline
+  - Màu sắc Matrix
+  - Hiệu ứng glitch
 
-Contributions are welcome! Feel free to:
+- **Terminal tương tác**:
+  - Lệnh thực tế
+  - Hiệu ứng typing
+  - Âm thanh khi gõ
+  - Lịch sử lệnh
 
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a pull request
+- **Cửa sổ thông minh**:
+  - Animation mở/đóng
+  - Hiệu ứng minimize
+  - Z-index tự động
+  - Giới hạn kích thước
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - Xem file [LICENSE](LICENSE) để biết thêm chi tiết.
 
-## 🙏 Acknowledgments
+## 🤝 Đóng góp
 
-- Inspired by Cyberpunk 2077
-- Built with modern web technologies
-- Community feedback and contributions
+Mọi đóng góp đều được hoan nghênh! Hãy:
 
-⚡ Created by [Nahvine](https://github.com/Nahvine)
+1. Fork repository
+2. Tạo branch mới (`git checkout -b feature/AmazingFeature`)
+3. Commit thay đổi (`git commit -m 'Add some AmazingFeature'`)
+4. Push lên branch (`git push origin feature/AmazingFeature`)
+5. Tạo Pull Request
 
----
+## 🙏 Cảm ơn
 
-## ☕ Support My Work
-
-If you like this project or find it helpful, consider buying me a coffee.  
-Your support helps me keep building cool stuff for the community 💻✨
-
-**Bitcoin (BTC) Address**  
-`3A5Aj5yiZhSgpAWpNHQSfFbGAgjpQosXjH`
-
-<img src="https://github.com/user-attachments/assets/c0ba0ba5-8c07-407e-ad35-3f68b6e1a639" width="225" />
-
-
-Thank you! 🙌
+- [React](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Vite](https://vitejs.dev/)
+- [React RND](https://github.com/bokuweb/react-rnd)
+- [Howler.js](https://howlerjs.com/)
 
 ---
 
+<div align="center">
+  <sub>Built with ❤️ by <a href="https://github.com/Nahvine">Nahvine</a></sub>
+</div>
