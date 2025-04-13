@@ -1,21 +1,22 @@
 # 🎮 Cyberpunk Portfolio
 
-![Cyberpunk Portfolio](public/preview.png)
+![image](https://github.com/user-attachments/assets/a174aa22-4f3f-4bbe-9b06-0cf661ee5696)
 
-> Một portfolio website với giao diện hệ điều hành kiểu Cyberpunk, được xây dựng bằng React và Tailwind CSS.
 
-## ✨ Tính năng
+> A portfolio website with a Cyberpunk OS-style interface, built with React and Tailwind CSS.
 
-- 🖥️ Giao diện hệ điều hành Cyberpunk với các cửa sổ có thể kéo thả
-- 🎮 Terminal tương tác với các lệnh thực tế
-- 🌓 Chế độ Hacker với hiệu ứng CRT và màu sắc thay đổi
-- 📱 Responsive trên mọi thiết bị
-- 🎨 Hiệu ứng neon và animation mượt mà
-- 🔄 Tích hợp dữ liệu GitHub realtime
-- 🎯 Taskbar với các cửa sổ đang mở
-- 🚀 Start Menu với các ứng dụng
+## ✨ Features
 
-## 🚀 Cài đặt
+- 🖥️ Cyberpunk OS interface with draggable windows
+- 🎮 Interactive terminal with real commands
+- 🌓 Hacker mode with CRT effects and color changes
+- 📱 Responsive on all devices
+- 🎨 Neon effects and smooth animations
+- 🔄 Real-time GitHub data integration
+- 🎯 Taskbar with open windows
+- 🚀 Start Menu with applications
+
+## 🚀 Installation
 
 1. Clone repository:
 ```bash
@@ -23,22 +24,22 @@ git clone https://github.com/Nahvine/portfolio_cyberpunk.git
 cd portfolio_cyberpunk
 ```
 
-2. Cài đặt dependencies:
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-3. Chạy development server:
+3. Run development server:
 ```bash
 npm run dev
 ```
 
-4. Build cho production:
+4. Build for production:
 ```bash
 npm run build
 ```
 
-## 🛠️ Công nghệ sử dụng
+## 🛠️ Technologies Used
 
 - ⚛️ React 18
 - 🎨 Tailwind CSS
@@ -48,59 +49,59 @@ npm run build
 - 🔄 React RND
 - 📱 React Icons
 
-## 🎮 Hướng dẫn sử dụng
+## 🎮 How to Use
 
 1. **Terminal**: 
-   - Gõ `help` để xem danh sách lệnh
-   - Sử dụng `clear` để xóa màn hình
-   - `hack` để bật/tắt chế độ Hacker
+   - Type `help` to see command list
+   - Use `clear` to clear screen
+   - `hack` to toggle Hacker mode
 
-2. **Cửa sổ**:
-   - Kéo thanh tiêu đề để di chuyển
-   - Nút vàng để minimize
-   - Nút hồng để đóng
-   - Click để đưa lên trên cùng
+2. **Windows**:
+   - Drag title bar to move
+   - Yellow button to minimize
+   - Pink button to close
+   - Click to bring to front
 
 3. **Taskbar**:
-   - Click vào icon để mở/đóng Start Menu
-   - Click vào cửa sổ đã minimize để mở lại
-   - Hiển thị các cửa sổ đang mở
+   - Click icon to open/close Start Menu
+   - Click minimized window to restore
+   - Shows all open windows
 
-## 🌟 Tính năng đặc biệt
+## 🌟 Special Features
 
-- **Chế độ Hacker**: 
-  - Bật/tắt bằng `Ctrl + H`
-  - Hiệu ứng CRT scanline
-  - Màu sắc Matrix
-  - Hiệu ứng glitch
+- **Hacker Mode**: 
+  - Toggle with `Ctrl + H`
+  - CRT scanline effect
+  - Matrix colors
+  - Glitch effects
 
-- **Terminal tương tác**:
-  - Lệnh thực tế
-  - Hiệu ứng typing
-  - Âm thanh khi gõ
-  - Lịch sử lệnh
+- **Interactive Terminal**:
+  - Real commands
+  - Typing effects
+  - Sound effects
+  - Command history
 
-- **Cửa sổ thông minh**:
-  - Animation mở/đóng
-  - Hiệu ứng minimize
-  - Z-index tự động
-  - Giới hạn kích thước
+- **Smart Windows**:
+  - Open/close animations
+  - Minimize effects
+  - Automatic z-index
+  - Size constraints
 
 ## 📝 License
 
-MIT License - Xem file [LICENSE](LICENSE) để biết thêm chi tiết.
+MIT License - See [LICENSE](LICENSE) file for details.
 
-## 🤝 Đóng góp
+## 🤝 Contributing
 
-Mọi đóng góp đều được hoan nghênh! Hãy:
+Contributions are welcome! Please:
 
-1. Fork repository
-2. Tạo branch mới (`git checkout -b feature/AmazingFeature`)
-3. Commit thay đổi (`git commit -m 'Add some AmazingFeature'`)
-4. Push lên branch (`git push origin feature/AmazingFeature`)
-5. Tạo Pull Request
+1. Fork the repository
+2. Create new branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
 
-## 🙏 Cảm ơn
+## 🙏 Acknowledgments
 
 - [React](https://reactjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
