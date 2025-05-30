@@ -5,16 +5,16 @@ const NeonButton = ({ children, onClick, className = '' }) => {
     <motion.button
       onClick={onClick}
       className={`
-        px-6 py-2 
-        bg-cyber-black
-        text-cyber-blue 
-        border border-cyber-blue 
-        shadow-neon
-        font-tech
-        rounded-lg
-        hover:bg-cyber-blue/10
-        hover:shadow-neon-pink
+        px-4 py-2
+        font-interactive font-medium
+        text-white
+        bg-gradient-to-r from-accent-pink to-accent-cyan
+        rounded-md
+        shadow-medium
+        hover:brightness-110
+        hover:shadow-lg
         transition-all duration-300
+        active:scale-95
         ${className}
       `}
       whileHover={{ scale: 1.05 }}
@@ -28,4 +28,4 @@ const NeonButton = ({ children, onClick, className = '' }) => {
   );
 };
 
-export default NeonButton; 
+export default NeonButton;

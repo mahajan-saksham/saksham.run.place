@@ -16,35 +16,184 @@ body {
   font-family: 'Share Tech Mono', monospace;
 }
 
-.glitch {
-  position: relative;
-  animation: glitch 1s infinite;
-}
-
-@keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-1px, -1px); }
-  60% { transform: translate(2px, 1px); }
-  80% { transform: translate(-1px, 2px); }
-  100% { transform: translate(0); }
-}
-
-/* Custom scrollbar */
+/* Custom scrollbar for cyberpunk theme */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.2);
 }
 
 ::-webkit-scrollbar-thumb {
   background: #00ffff;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #ff00ff;
+}
+
+/* Firefox scrollbar styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00ffff rgba(0, 255, 255, 0.1);
+}
+
+/* Ensure window content areas are scrollable */
+.window-content {
+  scrollbar-width: thin;
+  scrollbar-color: #00ffff transparent;
+}
+
+/* Hacker mode scrollbar */
+.hacker-mode ::-webkit-scrollbar-track {
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.hacker-mode ::-webkit-scrollbar-thumb {
+  background: #00ff00;
+}
+
+.hacker-mode ::-webkit-scrollbar-thumb:hover {
+  background: #00ff00;
+}
+
+.hacker-mode * {
+  scrollbar-color: #00ff00 rgba(0, 255, 0, 0.1);
+}
+
+/* New Design System */
+:root {
+  --bg-gradient: linear-gradient(135deg, #001F3F, #4B0082);
+  --accent-gradient: linear-gradient(to right, #FF6EC7, #0FF1CE, #39FF14);
+  --window-bg: rgba(21,27,61,0.8);
+  --text-primary: #FFFFFF;
+  --text-pink: #FF99CC;
+}
+
+/* Glass morphism */
+.glass {
+  background: var(--window-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Update body background */
+body {
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+}
+/* Dock-specific animations and effects */
+@keyframes dock-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), 
+                0 0 40px rgba(0, 255, 255, 0.2),
+                0 0 60px rgba(0, 255, 255, 0.1);
+  }
+  50% { 
+    box-shadow: 0 0 30px rgba(255, 0, 204, 0.4), 
+                0 0 50px rgba(255, 0, 204, 0.3),
+                0 0 70px rgba(255, 0, 204, 0.2);
+  }
+}
+
+@keyframes icon-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Dock glass effect enhancement */
+.dock-glass {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+}
+
+/* Neon text glow */
+.neon-glow {
+  text-shadow: 
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 30px currentColor,
+    0 0 40px currentColor;
+}
+
+/* Holographic effect */
+@keyframes holographic {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.holographic {
+  background: linear-gradient(
+    45deg,
+    #ff00ff,
+    #00ffff,
+    #ff00ff,
+    #00ffff
+  );
+  background-size: 300% 300%;
+  animation: holographic 3s ease infinite;
+}
+
+/* Glitch effect for icons */
+@keyframes icon-glitch {
+  0%, 100% { 
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  20% { 
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(90deg);
+  }
+  40% { 
+    transform: translate(-2px, -2px);
+    filter: hue-rotate(180deg);
+  }
+  60% { 
+    transform: translate(2px, 2px);
+    filter: hue-rotate(270deg);
+  }
+  80% { 
+    transform: translate(2px, -2px);
+    filter: hue-rotate(360deg);
+  }
+}
+
+.icon-glitch:hover {
+  animation: icon-glitch 0.3s ease infinite;
+}
+
+/* Pulse animation for active indicators */
+@keyframes neon-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.5);
+  }
+}
+
+/* Enhanced window shadows */
+.window-shadow {
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(0, 255, 255, 0.1);
 }

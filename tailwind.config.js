@@ -7,39 +7,40 @@ export default {
   theme: {
     extend: {
       colors: {
+        // New palette
+        'deep-blue': '#001F3F',
+        'dark-purple': '#4B0082',
+        'accent-pink': '#FF6EC7',
+        'accent-cyan': '#0FF1CE',
+        'accent-teal': '#39FF14',
+        // Keep old for gradual migration
         'cyber-blue': '#00ffff',
         'cyber-pink': '#ff00ff',
         'cyber-yellow': '#ffff00',
         'cyber-black': '#0a0a0a',
       },
+      backgroundImage: {
+        'gradient-main': 'linear-gradient(135deg, #001F3F, #4B0082)',
+        'gradient-accent': 'linear-gradient(to right, #FF6EC7, #0FF1CE, #39FF14)',
+      },
       fontFamily: {
+        'heading': ['Inter', 'sans-serif'],
+        'body': ['Poppins', 'sans-serif'],
+        'interactive': ['Roboto', 'sans-serif'],
+        // Keep old fonts
         'tech': ['Share Tech Mono', 'monospace'],
-        'pixel': ['Press Start 2P', 'cursive'],
         'orbitron': ['Orbitron', 'sans-serif'],
+        'pixel': ['Press Start 2P', 'cursive'],
       },
       boxShadow: {
-        'neon': '0 0 5px theme(colors.cyber-blue), 0 0 10px theme(colors.cyber-blue)',
-        'neon-pink': '0 0 5px theme(colors.cyber-pink), 0 0 10px theme(colors.cyber-pink)',
+        'soft': '0 2px 10px rgba(0,0,0,0.1)',
+        'medium': '0 4px 20px rgba(0,0,0,0.15)',
+        'glow': '0 0 20px rgba(255, 255, 255, 0.5)',
       },
       animation: {
-        'glitch': 'glitch 1s infinite',
-        'pulse-neon': 'pulse-neon 2s infinite',
-      },
-      keyframes: {
-        glitch: {
-          '0%': { transform: 'translate(0)' },
-          '20%': { transform: 'translate(-2px, 2px)' },
-          '40%': { transform: 'translate(-1px, -1px)' },
-          '60%': { transform: 'translate(2px, 1px)' },
-          '80%': { transform: 'translate(-1px, 2px)' },
-          '100%': { transform: 'translate(0)' },
-        },
-        'pulse-neon': {
-          '0%, 100%': { boxShadow: '0 0 5px theme(colors.cyber-blue), 0 0 10px theme(colors.cyber-blue)' },
-          '50%': { boxShadow: '0 0 10px theme(colors.cyber-blue), 0 0 20px theme(colors.cyber-blue)' },
-        },
+        'pulse-subtle': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },
   },
   plugins: [],
-} 
+}

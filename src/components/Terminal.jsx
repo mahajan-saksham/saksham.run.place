@@ -90,12 +90,12 @@ const Terminal = ({ hackerMode }) => {
           <motion.button 
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="w-3 h-3 rounded-full bg-cyber-yellow hover:shadow-neon transition-shadow duration-200"
+            className="w-3 h-3 rounded-full bg-cyber-yellow hover:opacity-80 transition-shadow duration-200"
           />
           <motion.button 
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="w-3 h-3 rounded-full bg-cyber-pink hover:shadow-neon-pink transition-shadow duration-200"
+            className="w-3 h-3 rounded-full bg-cyber-pink hover:opacity-80-pink transition-shadow duration-200"
           />
         </div>
       </div>

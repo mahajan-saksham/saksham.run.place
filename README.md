@@ -1,117 +1,99 @@
-# 🎮 Cyberpunk Portfolio
+# Saksham.run.place - Cyberpunk Portfolio
 
-![image](https://github.com/user-attachments/assets/a174aa22-4f3f-4bbe-9b06-0cf661ee5696)
+A futuristic, cyberpunk-themed portfolio website for Saksham Mahajan, Senior Product Designer at Yubi. Built with React, Tailwind CSS, and Framer Motion.
 
-
-> A portfolio website with a Cyberpunk OS-style interface, built with React and Tailwind CSS.
+![Portfolio Screenshot](https://saksham.run.place/og-image.jpg)
 
 ## ✨ Features
 
-- 🖥️ Cyberpunk OS interface with draggable windows
-- 🎮 Interactive terminal with real commands
-- 🌓 Hacker mode with CRT effects and color changes
-- 📱 Responsive on all devices
-- 🎨 Neon effects and smooth animations
-- 🔄 Real-time GitHub data integration
-- 🎯 Taskbar with open windows
-- 🚀 Start Menu with applications
+- 🖥️ **Window-based UI** - Draggable and resizable windows like a desktop OS
+- 🎨 **Cyberpunk Aesthetic** - Neon colors, glitch effects, CRT monitor simulation
+- 🔊 **Interactive Sound Effects** - Audio feedback for all interactions
+- 👾 **Hacker Mode** - Press `Ctrl+H` to switch to Matrix-style green theme
+- 📱 **Fully Responsive** - Works seamlessly on all devices
+- ⚡ **Fast Performance** - Built with Vite for optimal loading
 
-## 🚀 Installation
+## 🚀 Quick Start
 
-1. Clone repository:
 ```bash
-git clone https://github.com/Nahvine/portfolio_cyberpunk.git
-cd portfolio_cyberpunk
-```
+# Clone the repository
+git clone https://github.com/yourusername/saksham-portfolio.git
 
-2. Install dependencies:
-```bash
+# Navigate to project
+cd saksham-portfolio
+
+# Install dependencies
 npm install
-```
 
-3. Run development server:
-```bash
+# Start development server
 npm run dev
-```
 
-4. Build for production:
-```bash
+# Build for production
 npm run build
 ```
 
-## 🛠️ Technologies Used
+## 📁 Project Structure
 
-- ⚛️ React 18
-- 🎨 Tailwind CSS
-- 🎭 Framer Motion
-- 📦 Vite
-- 🎵 Howler.js
-- 🔄 React RND
-- 📱 React Icons
+```
+src/
+├── components/       # Reusable UI components
+├── data/            # Portfolio content (experience, projects, etc.)
+├── pages/           # Main page components
+├── hooks/           # Custom React hooks
+└── styles/          # CSS and styling files
+```
 
-## 🎮 How to Use
+## 🎨 Customization
 
-1. **Terminal**: 
-   - Type `help` to see command list
-   - Use `clear` to clear screen
-   - `hack` to toggle Hacker mode
+### Update Content
+All portfolio content is centralized in `/src/data/portfolioData.js`. Edit this file to:
+- Update personal information
+- Add/modify projects
+- Update experience and skills
+- Change social links
 
-2. **Windows**:
-   - Drag title bar to move
-   - Yellow button to minimize
-   - Pink button to close
-   - Click to bring to front
+### Modify Theme
+Colors are defined in `tailwind.config.js`:
+- `cyber-blue`: #00ffff
+- `cyber-pink`: #ff00ff
+- `cyber-yellow`: #ffff00
 
-3. **Taskbar**:
-   - Click icon to open/close Start Menu
-   - Click minimized window to restore
-   - Shows all open windows
+## 🛠️ Tech Stack
 
-## 🌟 Special Features
+- **React** - UI framework
+- **Vite** - Build tool
+- **Tailwind CSS** - Styling
+- **Framer Motion** - Animations
+- **React RnD** - Draggable/resizable windows
 
-- **Hacker Mode**: 
-  - Toggle with `Ctrl + H`
-  - CRT scanline effect
-  - Matrix colors
-  - Glitch effects
+## 📄 Documentation
 
-- **Interactive Terminal**:
-  - Real commands
-  - Typing effects
-  - Sound effects
-  - Command history
+- [Complete Documentation](./PROJECT_DOCUMENTATION.md) - Detailed technical documentation
+- [Quick Reference](./QUICK_REFERENCE.md) - Common tasks and quick fixes
 
-- **Smart Windows**:
-  - Open/close animations
-  - Minimize effects
-  - Automatic z-index
-  - Size constraints
+## 🌐 Deployment
+
+The site is configured for deployment on Vercel:
+
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy
+vercel
+```
 
 ## 📝 License
 
-MIT License - See [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
-## 🤝 Contributing
+## 🤝 Contact
 
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create new branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
-
-## 🙏 Acknowledgments
-
-- [React](https://reactjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [Vite](https://vitejs.dev/)
-- [React RND](https://github.com/bokuweb/react-rnd)
-- [Howler.js](https://howlerjs.com/)
+- **Portfolio**: [saksham.run.place](https://saksham.run.place)
+- **LinkedIn**: [Saksham Mahajan](https://www.linkedin.com/in/mahajansaksham/)
+- **Dribbble**: [@sakshammahajan](https://dribbble.com/sakshammahajan)
+- **Email**: sakshammahajan1997@gmail.com
 
 ---
 
-<div align="center">
-  <sub>Built with ❤️ by <a href="https://github.com/Nahvine">Nahvine</a></sub>
-</div>
+Built with 💜 by Saksham Mahajan
