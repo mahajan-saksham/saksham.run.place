@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Briefcase, FileText, Mail, Code, Github } from 'lucide-react';
+import { User, Briefcase, FileText, Mail, Code, Github, Layout } from 'lucide-react';
 import Window from '../components/Window';
 import MenuBar from '../components/MenuBar';
 import Dock from '../components/Dock';
@@ -11,6 +11,7 @@ import Projects from '../components/Projects';
 import CV from '../components/CV';
 import Contact from '../components/Contact';
 import Skills from '../components/Skills';
+import { DesktopWidgets } from '../components/widgets';
 import { useSound } from '../hooks/useSound';
 import { useIsMobile } from '../hooks/useMobile';
 import { portfolioData } from '../data/portfolioData';
@@ -21,6 +22,7 @@ function Home() {
   const [hackerMode, setHackerMode] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [windowZIndex, setWindowZIndex] = useState(100);
+  const [showWidgets, setShowWidgets] = useState(false);
 
   const { playSound } = useSound();
   const isMobile = useIsMobile();
@@ -80,6 +82,14 @@ function Home() {
       defaultSize: { width: 500, height: 600 }
     },
     { 
+      id: 'widgets', 
+      title: 'Desktop', 
+      icon: <Layout size={24} />, 
+      label: 'Desktop',
+      component: null,
+      isDesktopToggle: true
+    },
+    { 
       id: 'github', 
       title: 'GitHub', 
       icon: <Github size={24} />, 
@@ -89,10 +99,15 @@ function Home() {
       url: portfolioData.profile.social.github || 'https://github.com'
     }
   ];
-
   const openWindow = (app) => {
     if (app.isExternal) {
       window.open(app.url, '_blank');
+      return;
+    }
+
+    if (app.isDesktopToggle) {
+      setShowWidgets(!showWidgets);
+      setOpenWindows([]); // Close all windows when toggling desktop
       return;
     }
 
@@ -106,6 +121,7 @@ function Home() {
       focusWindow(app.id);
       return;
     }
+
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
     
@@ -145,7 +161,6 @@ function Home() {
     );
     setWindowZIndex(prev => prev + 1);
   };
-
   const minimizeWindow = (windowId) => {
     // For now, just close it. In future could add to dock
     closeWindow(windowId);
@@ -172,7 +187,8 @@ function Home() {
   return (
     <div className={`h-screen overflow-hidden ${
       hackerMode ? 'bg-[#001100] text-[#00ff00]' : 'bg-black text-white'
-    }`}>      {/* MenuBar - macOS style top bar (desktop only) */}
+    }`}>
+      {/* MenuBar - macOS style top bar (desktop only) */}
       {!isMobile && <MenuBar activeWindow={activeWindowTitle} hackerMode={hackerMode} />}
 
       {/* Background */}
@@ -183,33 +199,37 @@ function Home() {
 
       {/* Main content area with padding for menubar and dock */}
       <div className={`relative h-screen ${!isMobile ? 'pt-7' : ''} ${isMobile ? 'pb-20' : 'pb-24'}`}>
-        {/* Desktop Icons Removed - Clean desktop */}
-        
-        {/* Windows */}
-        <AnimatePresence>
-          {openWindows.map(window => (
-            <Window
-              key={window.id}
-              id={window.id}
-              title={window.title}
-              icon={window.icon}
-              defaultPosition={window.defaultPosition}
-              defaultSize={window.defaultSize}
-              onClose={() => closeWindow(window.id)}
-              onFocus={() => focusWindow(window.id)}
-              onMinimize={() => minimizeWindow(window.id)}
-              onUpdatePosition={updateWindowPosition}
-              onUpdateSize={updateWindowSize}
-              zIndex={window.zIndex}
-              isActive={window.id === activeWindowId}
-              hackerMode={hackerMode}
-            >
-              {window.component && <window.component />}
-            </Window>
-          ))}
-        </AnimatePresence>
+        {/* Show either windows or widgets based on showWidgets state */}
+        {showWidgets && !isMobile ? (
+          <DesktopWidgets />
+        ) : (
+          <>
+            {/* Windows */}
+            <AnimatePresence>
+              {openWindows.map(window => (
+                <Window
+                  key={window.id}
+                  id={window.id}
+                  title={window.title}
+                  icon={window.icon}
+                  defaultPosition={window.defaultPosition}
+                  defaultSize={window.defaultSize}
+                  onClose={() => closeWindow(window.id)}
+                  onFocus={() => focusWindow(window.id)}
+                  onMinimize={() => minimizeWindow(window.id)}
+                  onUpdatePosition={updateWindowPosition}
+                  onUpdateSize={updateWindowSize}
+                  zIndex={window.zIndex}
+                  isActive={window.id === activeWindowId}
+                  hackerMode={hackerMode}
+                >
+                  {window.component && <window.component />}
+                </Window>
+              ))}
+            </AnimatePresence>
+          </>
+        )}
       </div>
-
       {/* Dock - Bottom bar */}
       <Dock 
         apps={desktopApps}
