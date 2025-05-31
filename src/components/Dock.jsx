@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
-const DockIcon = ({ app, onClick, isOpen }) => {
+const DockIcon = ({ app, onClick, isOpen, isMobile }) => {
   const ref = useRef(null);
   const distance = useMotionValue(150);
   const [isHovered, setIsHovered] = useState(false);
@@ -11,7 +11,7 @@ const DockIcon = ({ app, onClick, isOpen }) => {
   }, [distance]);
 
   const handleMouseMove = (e) => {
-    if (ref.current) {
+    if (!isMobile && ref.current) {
       const rect = ref.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const dist = Math.abs(centerX - e.clientX);
@@ -25,19 +25,24 @@ const DockIcon = ({ app, onClick, isOpen }) => {
   const scale = useTransform(distanceSpring, [0, 100], [1.4, 1]);
   const translateY = useTransform(distanceSpring, [0, 100], [-15, 0]);
 
+  // Mobile size (smaller icons)
+  const iconSize = isMobile ? 'w-10 h-10' : 'w-12 h-12';
+
   return (
     <motion.div
       ref={ref}
-      onMouseMove={handleMouseMove}
+      onMouseMove={!isMobile ? handleMouseMove : undefined}
       onMouseLeave={() => {
-        distance.set(150);
-        setIsHovered(false);
+        if (!isMobile) {
+          distance.set(150);
+          setIsHovered(false);
+        }
       }}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
       className="relative"
     >
-      {/* Tooltip - Windows 11 style */}
-      {isHovered && (
+      {/* Tooltip - Windows 11 style (desktop only) */}
+      {isHovered && !isMobile && (
         <motion.div
           className="absolute -top-14 left-1/2 transform -translate-x-1/2 
                      bg-gray-800/95 backdrop-blur-xl text-white text-xs 
@@ -51,19 +56,19 @@ const DockIcon = ({ app, onClick, isOpen }) => {
           {app.label}
         </motion.div>
       )}
-
       <motion.div
         style={{
-          scale,
-          y: translateY,
+          scale: isMobile ? 1 : scale,
+          y: isMobile ? 0 : translateY,
         }}
         whileTap={{ scale: 0.9 }}
         className="relative cursor-pointer"
         initial={{ scale: 1, y: 0 }}
         onClick={onClick}
-      >        {/* Icon container - Windows 11 style with better colors */}
+      >
+        {/* Icon container - Windows 11 style with better colors */}
         <div className={`
-          w-12 h-12 rounded-xl flex items-center justify-center
+          ${iconSize} rounded-xl flex items-center justify-center
           transition-all duration-300 relative overflow-hidden
           ${isOpen 
             ? 'bg-white/20 backdrop-blur-2xl shadow-2xl' 
@@ -87,12 +92,13 @@ const DockIcon = ({ app, onClick, isOpen }) => {
           <div className={`
             relative z-10 transition-all duration-200
             ${isOpen ? 'text-white' : 'text-gray-300 group-hover:text-white'}
+            ${isMobile ? 'scale-90' : ''}
           `}>
             {app.icon}
           </div>
 
-          {/* Hover glow effect */}
-          {isHovered && !isOpen && (
+          {/* Hover glow effect (desktop only) */}
+          {isHovered && !isOpen && !isMobile && (
             <motion.div
               className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent"
               initial={{ opacity: 0 }}
@@ -126,29 +132,55 @@ const DockIcon = ({ app, onClick, isOpen }) => {
           <motion.div
             className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2"
             initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 24, opacity: 1 }}
+            animate={{ width: isMobile ? 16 : 24, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
           >
             <div className="h-0.5 bg-gradient-to-r from-accent-cyan to-accent-pink rounded-full shadow-glow" />
           </motion.div>
         )}
       </motion.div>
+
+      {/* Mobile label */}
+      {isMobile && (
+        <p className="text-[10px] text-gray-400 mt-1 text-center truncate max-w-[60px]">
+          {app.label}
+        </p>
+      )}
     </motion.div>
   );
 };
 
 const Dock = ({ apps, openWindows, onAppClick }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
-    <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+    <div className={`fixed ${
+      isMobile 
+        ? 'bottom-0 left-0 right-0 px-4 pb-4 pt-2' 
+        : 'bottom-8 left-1/2 transform -translate-x-1/2'
+    } z-50`}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="flex items-center gap-1.5 px-3 py-2 
-                   bg-gray-900/60 backdrop-blur-3xl
-                   border border-gray-700/30
-                   rounded-2xl shadow-2xl
-                   relative"
+        className={`
+          flex items-center ${isMobile ? 'justify-around' : 'gap-1.5'} 
+          ${isMobile ? 'px-4' : 'px-3'} py-2 
+          bg-gray-900/60 backdrop-blur-3xl
+          border border-gray-700/30
+          ${isMobile ? 'rounded-t-2xl' : 'rounded-2xl'} shadow-2xl
+          relative
+        `}
       >
         {/* Windows 11 style background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-gray-800/20 to-gray-900/20 rounded-2xl pointer-events-none" />
@@ -163,6 +195,7 @@ const Dock = ({ apps, openWindows, onAppClick }) => {
             app={app}
             onClick={() => onAppClick(app)}
             isOpen={openWindows.some(w => w.id === app.id)}
+            isMobile={isMobile}
           />
         ))}
       </motion.div>

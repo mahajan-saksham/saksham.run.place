@@ -1,0 +1,113 @@
+/* Mobile-specific styles */
+@media (max-width: 767px) {
+  /* Improve touch targets */
+  button, 
+  a, 
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) {
+    .hover\:bg-white\/10:hover {
+      background-color: transparent;
+    }
+    
+    .hover\:bg-white\/20:hover {
+      background-color: transparent;
+    }
+    
+    .hover\:bg-accent-teal\/20:hover {
+      background-color: transparent;
+    }
+  }
+
+  /* Better scrolling on mobile */
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Adjust glass morphism for performance */
+  .glass {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Adjust font sizes */
+  .text-3xl {
+    font-size: 1.5rem;
+  }
+
+  .text-2xl {
+    font-size: 1.25rem;
+  }
+
+  .text-xl {
+    font-size: 1.125rem;
+  }
+
+  /* Adjust padding and margins */
+  .p-6 {
+    padding: 1rem;
+  }
+
+  .p-4 {
+    padding: 0.875rem;
+  }
+
+  /* Mobile-friendly grid layouts */
+  .grid-cols-2 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Improve form inputs on mobile */
+  input, 
+  textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Landscape mobile adjustments */
+@media (max-width: 767px) and (orientation: landscape) {
+  .pb-20 {
+    padding-bottom: 3rem;
+  }
+
+  /* Smaller dock in landscape */
+  .fixed.bottom-0 {
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* Touch-friendly animations */
+@media (hover: none) {
+  /* Disable complex animations on touch devices */
+  .animate-pulse {
+    animation: none;
+  }
+
+  /* Simpler transitions */
+  .transition-all {
+    transition-property: transform, opacity;
+    transition-duration: 200ms;
+  }
+}
+
+/* iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Fix for iOS Safari bottom bar */
+  .pb-20 {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+
+  /* Fix for notch/dynamic island */
+  .pt-7 {
+    padding-top: calc(1.75rem + env(safe-area-inset-top));
+  }
+}

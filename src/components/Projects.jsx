@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import NeonButton from './NeonButton';
+import PlaceholderImage from './PlaceholderImage';
 import { portfolioData } from '../data/portfolioData';
 
 const ProjectCard = ({ project, hackerMode, onClick }) => (
@@ -15,18 +16,11 @@ const ProjectCard = ({ project, hackerMode, onClick }) => (
   >
     {/* Project Thumbnail */}
     <div className="aspect-video mb-4 rounded overflow-hidden bg-gradient-to-br from-accent-pink/10 to-accent-cyan/10">
-      <img 
+      <PlaceholderImage 
         src={project.thumbnail} 
         alt={project.title}
         className="w-full h-full object-cover"
-        onError={(e) => {
-          e.target.style.display = 'none';
-          e.target.parentElement.innerHTML = `
-            <div class="w-full h-full flex items-center justify-center text-accent-cyan/50">
-              <span class="text-4xl">🎨</span>
-            </div>
-          `;
-        }}
+        placeholderText={`${project.title} preview`}
       />
     </div>
 
@@ -47,8 +41,7 @@ const ProjectCard = ({ project, hackerMode, onClick }) => (
         )}
       </div>
       
-      <p className="text-sm opacity-80 line-clamp-2 font-body">{project.description}</p>
-      
+      <p className="text-sm opacity-80 line-clamp-2 font-body">{project.description}</p>      
       <div className="flex flex-wrap gap-2 mt-3">
         {project.tags.slice(0, 3).map((tag, i) => (
           <span 
@@ -94,35 +87,34 @@ const ProjectDetails = ({ project, hackerMode, onClose }) => (
           </div>
           <button 
             onClick={onClose}
-            className={`text-3xl ${
-              hackerMode ? 'text-accent-teal' : 'text-white'
-            } hover:opacity-80 transition-opacity`}
+            className={`p-2 rounded transition-colors ${
+              hackerMode ? 'hover:bg-accent-teal/20' : 'hover:bg-white/10'
+            }`}
           >
-            ×
-          </button>
-        </div>
+            ✕
+          </button>        </div>
       </div>
 
       {/* Content */}
-      <div className="overflow-y-auto max-h-[calc(90vh-120px)]">
+      <div className="p-6 overflow-y-auto max-h-[60vh]">
+        <p className="font-body mb-6 leading-relaxed">{project.description}</p>
+
         {/* Images Gallery */}
         {project.images && project.images.length > 0 && (
-          <div className="p-6 border-b border-white/10">
+          <div className="mb-6">
+            <h3 className={`text-lg font-heading font-semibold mb-4 ${
+              hackerMode ? 'text-accent-teal' : 'text-white'
+            }`}>
+              Project Visuals
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {project.images.map((img, i) => (
-                <div key={i} className="aspect-video rounded overflow-hidden bg-gradient-to-br from-accent-pink/10 to-accent-cyan/10">
-                  <img 
+                <div key={i} className="rounded overflow-hidden">
+                  <PlaceholderImage 
                     src={img} 
                     alt={`${project.title} screenshot ${i + 1}`}
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = `
-                        <div class="w-full h-full flex items-center justify-center text-accent-cyan/50">
-                          <span class="text-4xl">🖼️</span>
-                        </div>
-                      `;
-                    }}
+                    placeholderText={`Screenshot ${i + 1}`}
                   />
                 </div>
               ))}
@@ -130,42 +122,48 @@ const ProjectDetails = ({ project, hackerMode, onClose }) => (
           </div>
         )}
 
-        {/* Description */}
-        <div className="p-6">
+        {/* Tags */}
+        <div className="mb-6">
           <h3 className={`text-lg font-heading font-semibold mb-3 ${
-            hackerMode ? 'text-accent-teal' : 'text-accent-pink'
-          }`}>About this project</h3>
-          <p className="font-body text-gray-300 leading-relaxed mb-6">
-            {project.description}
-          </p>
-
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-6">
+            hackerMode ? 'text-accent-teal' : 'text-white'
+          }`}>
+            Technologies & Tags
+          </h3>
+          <div className="flex flex-wrap gap-2">
             {project.tags.map((tag, i) => (
               <span 
                 key={i}
-                className={`px-3 py-1 rounded text-sm font-interactive ${
+                className={`px-3 py-1.5 rounded text-sm font-interactive ${
                   hackerMode 
                     ? 'bg-accent-teal/10 text-accent-teal border border-accent-teal/30'
-                    : 'bg-gradient-to-r from-accent-pink/10 to-accent-cyan/10 text-white border border-white/20'
+                    : 'bg-white/10 text-gray-300 border border-white/20'
                 }`}
               >
                 {tag}
               </span>
             ))}
           </div>
-
-          {/* Actions */}
-          <div className="flex gap-4">
-            {project.link && (
-              <NeonButton onClick={() => window.open(project.link, '_blank')}>
-                View on Dribbble
-              </NeonButton>
-            )}
-            <NeonButton onClick={onClose}>
-              Close
+        </div>
+        {/* Action Buttons */}
+        <div className="flex gap-4">
+          {project.link && (
+            <NeonButton 
+              onClick={() => window.open(project.link, '_blank')}
+              className="flex-1"
+            >
+              View Project →
             </NeonButton>
-          </div>
+          )}
+          <button
+            onClick={onClose}
+            className={`flex-1 px-6 py-3 rounded font-interactive transition-all ${
+              hackerMode 
+                ? 'bg-accent-teal/10 text-accent-teal hover:bg-accent-teal/20 border border-accent-teal/30'
+                : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+            }`}
+          >
+            Close
+          </button>
         </div>
       </div>
     </motion.div>
@@ -175,9 +173,8 @@ const ProjectDetails = ({ project, hackerMode, onClose }) => (
 const Projects = ({ hackerMode }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [filter, setFilter] = useState('all');
-  
   const { projects } = portfolioData;
-  
+
   const categories = ['all', ...new Set(projects.map(p => p.category))];
   
   const filteredProjects = filter === 'all' 
@@ -186,47 +183,61 @@ const Projects = ({ hackerMode }) => {
 
   return (
     <div className="h-full flex flex-col">
-      {/* Filter Tabs */}
-      <div className="p-4 border-b border-white/10">
-        <div className="flex flex-wrap gap-2">
+      {/* Header */}
+      <div className={`p-4 border-b ${
+        hackerMode ? 'border-accent-teal/30' : 'border-white/10'
+      }`}>
+        <h2 className={`text-2xl font-heading font-bold mb-4 ${
+          hackerMode ? 'text-accent-teal' : 'gradient-text'
+        }`}>
+          Creative Portfolio
+        </h2>        
+        {/* Filter Tabs */}
+        <div className="flex gap-2 flex-wrap">
           {categories.map(cat => (
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-4 py-2 rounded-md text-sm font-interactive transition-all ${
+              className={`px-4 py-2 rounded font-interactive text-sm capitalize transition-all ${
                 filter === cat
                   ? hackerMode 
-                    ? 'bg-accent-teal text-black' 
+                    ? 'bg-accent-teal text-black'
                     : 'bg-gradient-to-r from-accent-pink to-accent-cyan text-white'
                   : hackerMode
-                    ? 'bg-accent-teal/10 text-accent-teal hover:bg-accent-teal/20'
-                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                    ? 'text-accent-teal/60 hover:text-accent-teal hover:bg-accent-teal/10'
+                    : 'text-gray-400 hover:text-white hover:bg-white/10'
               }`}
             >
-              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              {cat}
             </button>
           ))}
         </div>
       </div>
 
       {/* Projects Grid */}
-      <div className="flex-1 overflow-y-auto p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredProjects.map((project) => (
-            <ProjectCard
+      <div className="flex-1 overflow-y-auto p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          {filteredProjects.map((project, index) => (
+            <motion.div
               key={project.id}
-              project={project}
-              hackerMode={hackerMode}
-              onClick={() => setSelectedProject(project)}
-            />
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <ProjectCard 
+                project={project} 
+                hackerMode={hackerMode}
+                onClick={() => setSelectedProject(project)}
+              />
+            </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Project Modal */}
+      {/* Project Details Modal */}
       {selectedProject && (
-        <ProjectDetails
-          project={selectedProject}
+        <ProjectDetails 
+          project={selectedProject} 
           hackerMode={hackerMode}
           onClose={() => setSelectedProject(null)}
         />

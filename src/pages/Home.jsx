@@ -12,6 +12,7 @@ import CV from '../components/CV';
 import Contact from '../components/Contact';
 import Skills from '../components/Skills';
 import { useSound } from '../hooks/useSound';
+import { useIsMobile } from '../hooks/useMobile';
 import { portfolioData } from '../data/portfolioData';
 
 function Home() {
@@ -22,82 +23,121 @@ function Home() {
   const [windowZIndex, setWindowZIndex] = useState(100);
 
   const { playSound } = useSound();
+  const isMobile = useIsMobile();
 
   // Handle Ctrl + H for Hacker Mode
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.ctrlKey && e.key === 'h') {
         setHackerMode(prev => !prev);
-        playSound('success');
-      }
-      // Close all windows on Escape
-      if (e.key === 'Escape' && openWindows.length > 0) {
-        setOpenWindows([]);
-        playSound('close');
+        playSound('startup');
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [playSound, openWindows]);
-
+  }, [playSound]);
+  // Desktop Apps configuration
   const desktopApps = [
-    { id: 'profile', icon: <User size={24} />, label: 'About Me', component: Profile },
-    { id: 'projects', icon: <Briefcase size={24} />, label: 'Projects', component: Projects },
-    { id: 'cv', icon: <FileText size={24} />, label: 'Resume', component: CV },
-    { id: 'contact', icon: <Mail size={24} />, label: 'Contact', component: Contact },
-    { id: 'skills', icon: <Code size={24} />, label: 'Skills', component: Skills },
-    { id: 'github', icon: <Github size={24} />, label: 'GitHub', component: null },
-  ];  
+    { 
+      id: 'profile', 
+      title: 'About Me', 
+      icon: <User size={24} />, 
+      label: 'Profile',
+      component: () => <Profile hackerMode={hackerMode} />,
+      defaultSize: { width: 600, height: 600 }
+    },
+    { 
+      id: 'projects', 
+      title: 'Projects', 
+      icon: <Briefcase size={24} />, 
+      label: 'Projects',
+      component: () => <Projects hackerMode={hackerMode} />,
+      defaultSize: { width: 900, height: 700 }
+    },
+    { 
+      id: 'skills', 
+      title: 'Skills', 
+      icon: <Code size={24} />, 
+      label: 'Skills',
+      component: () => <Skills hackerMode={hackerMode} />,
+      defaultSize: { width: 600, height: 500 }
+    },
+    { 
+      id: 'cv', 
+      title: 'Resume', 
+      icon: <FileText size={24} />, 
+      label: 'Resume',
+      component: () => <CV hackerMode={hackerMode} />,
+      defaultSize: { width: 700, height: 600 }
+    },
+    { 
+      id: 'contact', 
+      title: 'Contact', 
+      icon: <Mail size={24} />, 
+      label: 'Contact',
+      component: () => <Contact hackerMode={hackerMode} />,
+      defaultSize: { width: 500, height: 600 }
+    },
+    { 
+      id: 'github', 
+      title: 'GitHub', 
+      icon: <Github size={24} />, 
+      label: 'GitHub',
+      component: null,
+      isExternal: true,
+      url: portfolioData.profile.social.github || 'https://github.com'
+    }
+  ];
+
   const openWindow = (app) => {
-    if (app.id === 'github') {
-      const githubUrl = portfolioData.profile.social.github || 'https://github.com';
-      window.open(githubUrl, '_blank');
-      playSound('open');
+    if (app.isExternal) {
+      window.open(app.url, '_blank');
       return;
     }
 
-    if (openWindows.find(w => w.id === app.id)) {
+    // On mobile, close other windows when opening a new one
+    if (isMobile) {
+      setOpenWindows([]);
+    }
+
+    const isAlreadyOpen = openWindows.find(w => w.id === app.id);
+    if (isAlreadyOpen) {
       focusWindow(app.id);
       return;
     }
-
-    playSound('open');
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
     
-    // Fixed window size for all windows
-    const windowSize = { width: 600, height: 600 };
-    
-    // Center window on screen
-    const centerX = Math.max(50, Math.floor((window.innerWidth - windowSize.width) / 2));
-    const centerY = Math.max(50, Math.floor((window.innerHeight - windowSize.height) / 2));
-    
-    const newWindow = {
-      id: app.id,
-      title: app.label,
-      icon: app.icon,
-      component: app.component,
-      zIndex: windowZIndex,
-      defaultPosition: {  // Changed from 'position' to 'defaultPosition'
-        x: centerX,
-        y: centerY
-      },
-      defaultSize: windowSize  // Changed from 'size' to 'defaultSize'
+    // Calculate centered position for desktop
+    const defaultPosition = isMobile ? { x: 0, y: 0 } : {
+      x: Math.max(0, (screenWidth - app.defaultSize.width) / 2),
+      y: Math.max(0, (screenHeight - app.defaultSize.height) / 2 - 50)
     };
 
-    setOpenWindows([...openWindows, newWindow]);
+    const newWindow = {
+      ...app,
+      defaultPosition,
+      zIndex: windowZIndex
+    };
+
+    setOpenWindows(prev => [...prev, newWindow]);
     setActiveWindowId(app.id);
     setWindowZIndex(prev => prev + 1);
+    playSound('open');
   };
 
   const closeWindow = (windowId) => {
-    playSound('close');
-    setOpenWindows(openWindows.filter(w => w.id !== windowId));
+    setOpenWindows(windows => windows.filter(w => w.id !== windowId));
     if (activeWindowId === windowId) {
       setActiveWindowId(null);
     }
+    playSound('close');
   };
+
   const focusWindow = (windowId) => {
     setActiveWindowId(windowId);
-    setOpenWindows(windows => 
+    setOpenWindows(windows =>
       windows.map(w => ({
         ...w,
         zIndex: w.id === windowId ? windowZIndex : w.zIndex
@@ -132,9 +172,8 @@ function Home() {
   return (
     <div className={`h-screen overflow-hidden ${
       hackerMode ? 'bg-[#001100] text-[#00ff00]' : 'bg-black text-white'
-    }`}>
-      {/* MenuBar - macOS style top bar */}
-      <MenuBar activeWindow={activeWindowTitle} hackerMode={hackerMode} />
+    }`}>      {/* MenuBar - macOS style top bar (desktop only) */}
+      {!isMobile && <MenuBar activeWindow={activeWindowTitle} hackerMode={hackerMode} />}
 
       {/* Background */}
       <div className={`absolute inset-0 ${
@@ -143,7 +182,7 @@ function Home() {
       }`} />
 
       {/* Main content area with padding for menubar and dock */}
-      <div className="relative h-screen pt-7 pb-24">
+      <div className={`relative h-screen ${!isMobile ? 'pt-7' : ''} ${isMobile ? 'pb-20' : 'pb-24'}`}>
         {/* Desktop Icons Removed - Clean desktop */}
         
         {/* Windows */}
@@ -178,17 +217,19 @@ function Home() {
         onAppClick={openWindow}
       />
 
-      {/* Start Menu */}
-      <AnimatePresence>
-        {isStartMenuOpen && (
-          <StartMenu 
-            onClose={() => setIsStartMenuOpen(false)}
-            onOpenApp={openWindow}
-            apps={desktopApps}
-            hackerMode={hackerMode}
-          />
-        )}
-      </AnimatePresence>
+      {/* Start Menu (desktop only) */}
+      {!isMobile && (
+        <AnimatePresence>
+          {isStartMenuOpen && (
+            <StartMenu 
+              onClose={() => setIsStartMenuOpen(false)}
+              onOpenApp={openWindow}
+              apps={desktopApps}
+              hackerMode={hackerMode}
+            />
+          )}
+        </AnimatePresence>
+      )}
     </div>
   );
 }

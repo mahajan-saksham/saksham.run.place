@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import mobile-specific styles */
+@import './styles/mobile.css';
+
 :root {
   color-scheme: dark;
 }
@@ -15,7 +18,6 @@ body {
   background-color: #0a0a0a;
   font-family: 'Share Tech Mono', monospace;
 }
-
 /* Custom scrollbar for cyberpunk theme */
 ::-webkit-scrollbar {
   width: 10px;
@@ -65,7 +67,6 @@ body {
 .hacker-mode * {
   scrollbar-color: #00ff00 rgba(0, 255, 0, 0.1);
 }
-
 /* New Design System */
 :root {
   --bg-gradient: linear-gradient(135deg, #001F3F, #4B0082);
@@ -96,6 +97,7 @@ body {
   background: var(--bg-gradient);
   background-attachment: fixed;
 }
+
 /* Dock-specific animations and effects */
 @keyframes dock-glow {
   0%, 100% { 
@@ -114,7 +116,6 @@ body {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-3px); }
 }
-
 /* Dock glass effect enhancement */
 .dock-glass {
   background: rgba(0, 0, 0, 0.6);
@@ -163,8 +164,7 @@ body {
   40% { 
     transform: translate(-2px, -2px);
     filter: hue-rotate(180deg);
-  }
-  60% { 
+  }  60% { 
     transform: translate(2px, 2px);
     filter: hue-rotate(270deg);
   }

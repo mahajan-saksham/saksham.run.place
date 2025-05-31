@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Download, FileText, Eye, EyeOff } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 import NeonButton from './NeonButton';
 
 const CV = ({ hackerMode }) => {
   const [activeTab, setActiveTab] = useState('experience');
+  const [showPdfViewer, setShowPdfViewer] = useState(false);
+  const [pdfError, setPdfError] = useState(false);
   const { experience, education, skills, certifications } = portfolioData;
 
   const tabs = [
@@ -15,7 +18,16 @@ const CV = ({ hackerMode }) => {
   ];
 
   const handleDownloadResume = () => {
-    window.open('/resume/saksham-mahajan-resume.pdf', '_blank');
+    const link = document.createElement('a');
+    link.href = '/resume/saksham-resume.pdf';
+    link.download = 'Saksham_Mahajan_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleViewPdf = () => {
+    setShowPdfViewer(!showPdfViewer);
   };
 
   return (
@@ -24,7 +36,7 @@ const CV = ({ hackerMode }) => {
       <div className={`flex justify-between items-center p-4 border-b ${
         hackerMode ? 'border-accent-teal/30' : 'border-white/10'
       }`}>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {tabs.map(tab => (
             <button
               key={tab.id}
@@ -43,10 +55,44 @@ const CV = ({ hackerMode }) => {
             </button>
           ))}
         </div>
-        <NeonButton onClick={handleDownloadResume}>
-          📄 Download PDF
-        </NeonButton>
+        <div className="flex gap-2">
+          <button
+            onClick={handleViewPdf}
+            className={`px-4 py-2 rounded-md flex items-center gap-2 transition-all ${
+              hackerMode
+                ? 'bg-accent-teal/10 text-accent-teal hover:bg-accent-teal/20'
+                : 'bg-white/10 text-white hover:bg-white/20'
+            }`}
+          >
+            {showPdfViewer ? <EyeOff size={16} /> : <Eye size={16} />}
+            {showPdfViewer ? 'Hide' : 'View'} PDF
+          </button>
+          <NeonButton onClick={handleDownloadResume}>
+            <Download size={16} className="inline mr-2" />
+            Download PDF
+          </NeonButton>
+        </div>
       </div>
+      {/* PDF Viewer */}
+      {showPdfViewer && (
+        <div className="p-4 border-b border-white/10">
+          {!pdfError ? (
+            <iframe
+              src="/resume/saksham-resume.pdf"
+              className="w-full h-96 rounded-lg border border-white/10"
+              title="Resume PDF"
+              onError={() => setPdfError(true)}
+            />
+          ) : (
+            <div className="w-full h-96 rounded-lg border border-white/10 bg-gray-800/50 flex flex-col items-center justify-center">
+              <FileText className="w-16 h-16 text-gray-500 mb-4" />
+              <p className="text-gray-400 mb-2">Resume PDF not found</p>
+              <p className="text-sm text-gray-500">Please add your resume to:</p>
+              <code className="text-xs bg-gray-700/50 px-2 py-1 rounded mt-1">/public/resume/saksham-resume.pdf</code>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Content Area */}
       <div className="flex-1 overflow-y-auto p-6">
@@ -80,8 +126,7 @@ const CV = ({ hackerMode }) => {
                     <p className="text-sm font-body opacity-80">{exp.duration}</p>
                     <p className="text-xs font-body opacity-60">{exp.location}</p>
                   </div>
-                </div>
-                
+                </div>                
                 <p className="font-body text-gray-300 mb-4">{exp.description}</p>
                 
                 <ul className="space-y-2">
@@ -136,7 +181,6 @@ const CV = ({ hackerMode }) => {
                 ))}
               </div>
             </motion.div>
-
             {/* Research Skills */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -184,8 +228,7 @@ const CV = ({ hackerMode }) => {
             >
               <h3 className={`text-lg font-heading font-semibold mb-4 ${
                 hackerMode ? 'text-accent-teal' : 'text-accent-pink'
-              }`}>Technical Skills</h3>
-              <div className="space-y-3">
+              }`}>Technical Skills</h3>              <div className="space-y-3">
                 {skills.technical.map((skill, i) => (
                   <div key={i}>
                     <div className="flex justify-between mb-1">
@@ -234,8 +277,7 @@ const CV = ({ hackerMode }) => {
                 }`}>
                   {edu.field}
                 </p>
-                <p className="font-body text-gray-300">{edu.institution}</p>
-                <p className="text-sm font-body opacity-60 mt-2">
+                <p className="font-body text-gray-300">{edu.institution}</p>                <p className="text-sm font-body opacity-60 mt-2">
                   {edu.duration} • {edu.location}
                 </p>
               </motion.div>
