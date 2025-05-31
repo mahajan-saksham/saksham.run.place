@@ -35,3 +35,7 @@ tasks/
 .roo
 .roomodes
 .windsurfrules
+.vercel
+
+# Local Netlify folder
+.netlify
