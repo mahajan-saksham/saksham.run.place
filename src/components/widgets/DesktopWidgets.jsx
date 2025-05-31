@@ -4,6 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, Plus, Grid3X3 } from 'lucide-react';
 import VisitorStatsWidget from './VisitorStatsWidget';
 import SocialFeedWidget from './SocialFeedWidget';
+import BioStatusWidget from './BioStatusWidget';
+import TShirtCollectionWidget from './TShirtCollectionWidget';
+import MusicPlayerWidget from './MusicPlayerWidget';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
@@ -13,26 +16,37 @@ const DesktopWidgets = () => {
   const [widgets, setWidgets] = useState([
     { id: 'visitor-stats', component: VisitorStatsWidget, enabled: true },
     { id: 'social-feed', component: SocialFeedWidget, enabled: true },
+    { id: 'bio-status', component: BioStatusWidget, enabled: true },
+    { id: 'tshirt-collection', component: TShirtCollectionWidget, enabled: true },
+    { id: 'music-player', component: MusicPlayerWidget, enabled: true },
   ]);
 
   const [layouts, setLayouts] = useState({
     lg: [
       { i: 'visitor-stats', x: 0, y: 0, w: 4, h: 5 },
       { i: 'social-feed', x: 4, y: 0, w: 4, h: 5 },
+      { i: 'bio-status', x: 8, y: 0, w: 4, h: 5 },
+      { i: 'tshirt-collection', x: 0, y: 5, w: 4, h: 6 },
+      { i: 'music-player', x: 4, y: 5, w: 6, h: 6 },
     ],
     md: [
       { i: 'visitor-stats', x: 0, y: 0, w: 6, h: 5 },
       { i: 'social-feed', x: 6, y: 0, w: 6, h: 5 },
+      { i: 'bio-status', x: 0, y: 5, w: 6, h: 5 },
+      { i: 'tshirt-collection', x: 6, y: 5, w: 6, h: 6 },
+      { i: 'music-player', x: 0, y: 10, w: 12, h: 6 },
     ],
     sm: [
       { i: 'visitor-stats', x: 0, y: 0, w: 12, h: 5 },
       { i: 'social-feed', x: 0, y: 5, w: 12, h: 5 },
+      { i: 'bio-status', x: 0, y: 10, w: 12, h: 5 },
+      { i: 'tshirt-collection', x: 0, y: 15, w: 12, h: 6 },
+      { i: 'music-player', x: 0, y: 21, w: 12, h: 6 },
     ]
   });
 
   const [showSettings, setShowSettings] = useState(false);
   const [editMode, setEditMode] = useState(false);
-
   // Load saved layouts from localStorage
   useEffect(() => {
     const savedLayouts = localStorage.getItem('widget-layouts');
@@ -49,6 +63,7 @@ const DesktopWidgets = () => {
       })));
     }
   }, []);
+
   const handleLayoutChange = (layout, layouts) => {
     setLayouts(layouts);
     localStorage.setItem('widget-layouts', JSON.stringify(layouts));
@@ -81,8 +96,7 @@ const DesktopWidgets = () => {
         onClick={() => setShowSettings(!showSettings)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-      >
-        <Settings size={20} className="text-white" />
+      >        <Settings size={20} className="text-white" />
       </motion.button>
 
       {/* Edit Mode Toggle */}
@@ -103,13 +117,14 @@ const DesktopWidgets = () => {
             initial={{ opacity: 0, scale: 0.9, x: 20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             exit={{ opacity: 0, scale: 0.9, x: 20 }}
-          >            <div className="p-4">
+          >
+            <div className="p-4">
               <h3 className="text-lg font-semibold text-white mb-4">Widget Settings</h3>
               <div className="space-y-2">
                 {widgets.map(widget => (
                   <div key={widget.id} className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-800/50">
                     <span className="text-sm text-gray-300 capitalize">
-                      {widget.id.replace('-', ' ')}
+                      {widget.id.replace(/-/g, ' ')}
                     </span>
                     <button
                       onClick={() => toggleWidget(widget.id)}
@@ -131,8 +146,7 @@ const DesktopWidgets = () => {
                 <p className="text-xs text-gray-400">
                   {editMode ? 'Drag widgets to rearrange' : 'Enable edit mode to rearrange widgets'}
                 </p>
-              </div>
-            </div>
+              </div>            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -155,7 +169,7 @@ const DesktopWidgets = () => {
           return (
             <div key={widget.id} className={editMode ? 'cursor-move' : ''}>
               <WidgetComponent
-                onClose={() => removeWidget(widget.id)}
+                onRemove={() => removeWidget(widget.id)}
                 onMinimize={() => {}}
               />
             </div>
