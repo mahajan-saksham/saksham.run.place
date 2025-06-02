@@ -1,14 +1,12 @@
+/* All @import statements must come first */
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Press+Start+2P&family=Orbitron:wght@400;500;600;700&display=swap');
+@import './styles/mobile.css';
+@import './styles/widgets.css';
 
+/* Tailwind directives come after @import statements */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import mobile-specific styles */
-@import './styles/mobile.css';
-
-/* Import widget styles */
-@import './styles/widgets.css';
 
 :root {
   color-scheme: dark;
@@ -52,7 +50,6 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #00ffff transparent;
 }
-
 /* Hacker mode scrollbar */
 .hacker-mode ::-webkit-scrollbar-track {
   background: rgba(0, 255, 0, 0.1);
@@ -100,7 +97,6 @@ body {
   background: var(--bg-gradient);
   background-attachment: fixed;
 }
-
 /* Dock-specific animations and effects */
 @keyframes dock-glow {
   0%, 100% { 
@@ -153,7 +149,6 @@ body {
   background-size: 300% 300%;
   animation: holographic 3s ease infinite;
 }
-
 /* Glitch effect for icons */
 @keyframes icon-glitch {
   0%, 100% { 
@@ -171,7 +166,8 @@ body {
   60% { 
     transform: translate(2px, 2px);
     filter: hue-rotate(270deg);
-  }  80% { 
+  }  
+  80% { 
     transform: translate(2px, -2px);
     filter: hue-rotate(360deg);
   }
@@ -199,4 +195,130 @@ body {
     0 0 0 1px rgba(255, 255, 255, 0.1),
     0 10px 40px rgba(0, 0, 0, 0.5),
     0 0 80px rgba(0, 255, 255, 0.1);
+}
+/* Enhanced MenuBar Styles */
+.menubar-glow {
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Shadow glow effect for active elements */
+.shadow-glow {
+  box-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
+}
+
+/* Enhanced widget icon hover effect */
+.widget-icon-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* System tray item hover effect */
+.system-tray-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.system-tray-hover::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.system-tray-hover:hover::before {
+  transform: translateX(100%);
+}
+
+/* MenuBar logo shine effect */
+@keyframes logo-shine {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.logo-shine {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: logo-shine 3s infinite;
+}
+/* Battery indicator pulse for low battery */
+@keyframes battery-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.battery-low {
+  animation: battery-pulse 1.5s infinite;
+}
+
+/* Widget dropdown enhanced shadow */
+.widget-dropdown-shadow {
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.3),
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Blob animation for animated background */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Mix blend mode support */
+.mix-blend-multiply {
+  mix-blend-mode: multiply;
+}
+
+/* Filter blur support */
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.blur-3xl {
+  --tw-blur: blur(64px);
+}
+
+/* Welcome text animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MapPin, Clock, Circle, Coffee, Code, Gamepad2 } from 'lucide-react';
 import WidgetCard from './WidgetCard';
 
-const BioStatusWidget = ({ onRemove }) => {
+const BioStatusWidget = ({ onRemove, isDropdown = false }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [status, setStatus] = useState('available');
   const [activity, setActivity] = useState('designing');
@@ -38,7 +38,7 @@ const BioStatusWidget = ({ onRemove }) => {
     return () => clearInterval(timer);
   }, []);
 
-  // Update time every second
+  // Update clock
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -46,133 +46,83 @@ const BioStatusWidget = ({ onRemove }) => {
     
     return () => clearInterval(timer);
   }, []);
-
-  const formatTime = (date) => {
-    return date.toLocaleTimeString('en-IN', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true,
-      timeZone: timezone
-    });
-  };
-
-  const formatDate = (date) => {
-    return date.toLocaleDateString('en-IN', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      timeZone: timezone
-    });
-  };
-
-  return (
-    <WidgetCard 
-      title="Bio & Status" 
-      icon={<Circle className="w-5 h-5" />}
-      onRemove={onRemove}
-      className="bio-status-widget"
-    >
-      <div className="space-y-4">
-        {/* Status Section */}
-        <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-medium text-white/60">Current Status</h3>
-            <div className="flex items-center gap-2">
-              <div className={`w-2 h-2 rounded-full ${statuses[status].color} animate-pulse`}></div>
-              <span className="text-sm font-medium">{statuses[status].text}</span>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-2 text-sm text-white/80">
-            {activities[activity].icon}
-            <span>{activities[activity].text}</span>
-          </div>
+  const content = (
+    <div className="p-4">
+      {/* Profile Section */}
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-12 h-12 bg-gradient-to-br from-accent-cyan to-accent-pink rounded-full flex items-center justify-center text-lg font-bold">
+          SM
         </div>
-
-        {/* Bio Section */}
-        <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-          <p className="text-white/90 font-mono text-sm leading-relaxed min-h-[3rem]">
-            {typingText}
-            <span className="animate-pulse">|</span>
-          </p>
-          
-          <div className="mt-4 space-y-2">
-            <div className="flex items-center gap-3 text-sm text-white/70">
-              <MapPin className="w-4 h-4" />
-              <span>Bengaluru, India</span>
-            </div>
-            
-            <div className="flex items-center gap-3 text-sm text-white/70">
-              <Clock className="w-4 h-4" />
-              <div>
-                <div className="font-medium">{formatTime(currentTime)}</div>
-                <div className="text-xs text-white/50">{formatDate(currentTime)}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-3 gap-2">
-          <button
-            onClick={() => setStatus('available')}
-            className={`py-2 px-3 rounded-lg text-xs font-medium transition-all ${
-              status === 'available' 
-                ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
-                : 'bg-white/5 text-white/60 hover:bg-white/10 border border-white/10'
-            }`}
-          >
-            Available
-          </button>
-          <button
-            onClick={() => setStatus('busy')}
-            className={`py-2 px-3 rounded-lg text-xs font-medium transition-all ${
-              status === 'busy' 
-                ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' 
-                : 'bg-white/5 text-white/60 hover:bg-white/10 border border-white/10'
-            }`}
-          >
-            Busy
-          </button>
-          <button
-            onClick={() => setStatus('away')}
-            className={`py-2 px-3 rounded-lg text-xs font-medium transition-all ${
-              status === 'away' 
-                ? 'bg-gray-500/20 text-gray-400 border border-gray-500/30' 
-                : 'bg-white/5 text-white/60 hover:bg-white/10 border border-white/10'
-            }`}
-          >
-            Away
-          </button>
-        </div>
-
-        {/* Social Links */}
-        <div className="flex items-center justify-center gap-4 pt-2">
-          <a 
-            href="https://linkedin.com/in/mahajansaksham" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-white/60 hover:text-white transition-colors"
-          >
-            <span className="text-xs">LinkedIn</span>
-          </a>
-          <a 
-            href="https://github.com/mahajansaksham" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-white/60 hover:text-white transition-colors"
-          >
-            <span className="text-xs">GitHub</span>
-          </a>
-          <a 
-            href="mailto:sakshammahajan1997@gmail.com"
-            className="text-white/60 hover:text-white transition-colors"
-          >
-            <span className="text-xs">Email</span>
-          </a>
+        <div className="flex-1">
+          <h4 className="text-sm font-medium text-white">Saksham Mahajan</h4>
+          <p className="text-xs text-gray-400 h-4">{typingText}<span className="animate-pulse">|</span></p>
         </div>
       </div>
+
+      {/* Status Section */}
+      <div className="flex items-center justify-between mb-4 p-3 bg-gray-800/30 rounded-lg">
+        <div className="flex items-center gap-2">
+          <Circle className={`w-3 h-3 ${statuses[status].color} fill-current`} />
+          <span className="text-sm text-white">{statuses[status].text}</span>
+        </div>
+        <div className="flex items-center gap-2 text-gray-400">
+          {activities[activity].icon}
+          <span className="text-xs">{activities[activity].text}</span>
+        </div>
+      </div>
+
+      {/* Location & Time */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-2 text-sm text-gray-400">
+          <MapPin className="w-4 h-4" />
+          <span>Bengaluru, India</span>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-gray-400">
+          <Clock className="w-4 h-4" />
+          <span>{currentTime.toLocaleTimeString('en-US', { 
+            hour: '2-digit', 
+            minute: '2-digit',
+            timeZone: timezone 
+          })} IST</span>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="mt-4 flex gap-2">
+        <button 
+          onClick={() => setStatus(status === 'available' ? 'busy' : 'available')}
+          className="flex-1 px-3 py-2 text-xs bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-colors"
+        >          Toggle Status
+        </button>
+        <button 
+          onClick={() => {
+            const activities = ['designing', 'coffee', 'gaming'];
+            const currentIndex = activities.indexOf(activity);
+            setActivity(activities[(currentIndex + 1) % activities.length]);
+          }}
+          className="flex-1 px-3 py-2 text-xs bg-gray-800/50 rounded-lg hover:bg-gray-700/50 transition-colors"
+        >
+          Change Activity
+        </button>
+      </div>
+    </div>
+  );
+
+  // If in dropdown mode, return content without WidgetCard wrapper
+  if (isDropdown) {
+    return content;
+  }
+
+  // Otherwise, return with WidgetCard wrapper
+  return (
+    <WidgetCard
+      id="bio-status"
+      title="Bio & Status"
+      icon="👤"
+      onRemove={onRemove}
+      className="h-full"
+    >
+      {content}
     </WidgetCard>
   );
 };
