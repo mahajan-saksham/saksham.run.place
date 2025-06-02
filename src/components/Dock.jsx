@@ -41,21 +41,7 @@ const DockIcon = ({ app, onClick, isOpen, isMobile }) => {
       onMouseEnter={() => !isMobile && setIsHovered(true)}
       className="relative"
     >
-      {/* Tooltip - Windows 11 style (desktop only) */}
-      {isHovered && !isMobile && (
-        <motion.div
-          className="absolute -top-14 left-1/2 transform -translate-x-1/2 
-                     bg-gray-800/95 backdrop-blur-xl text-white text-xs 
-                     px-3 py-2 rounded-lg whitespace-nowrap pointer-events-none z-50
-                     shadow-2xl border border-gray-700/50"
-          initial={{ opacity: 0, y: 10, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 10, scale: 0.9 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-        >
-          {app.label}
-        </motion.div>
-      )}
+      
       <motion.div
         style={{
           scale: isMobile ? 1 : scale,
@@ -66,6 +52,22 @@ const DockIcon = ({ app, onClick, isOpen, isMobile }) => {
         initial={{ scale: 1, y: 0 }}
         onClick={onClick}
       >
+        {/* Tooltip - properly centered */}
+        {isHovered && !isMobile && (
+          <div className="absolute bottom-full left-0 right-0 flex justify-center mb-2 pointer-events-none z-50">
+            <motion.div
+              className="bg-gray-800/95 backdrop-blur-xl text-white text-xs 
+                         px-3 py-2 rounded-lg whitespace-nowrap
+                         shadow-2xl border border-gray-700/50"
+              initial={{ opacity: 0, y: 5, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 5, scale: 0.9 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+            >
+              {app.label}
+            </motion.div>
+          </div>
+        )}
         {/* Icon container - Windows 11 style with better colors */}
         <div className={`
           ${iconSize} rounded-xl flex items-center justify-center

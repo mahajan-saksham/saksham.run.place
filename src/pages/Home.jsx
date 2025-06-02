@@ -11,6 +11,7 @@ import Projects from '../components/Projects';
 import CV from '../components/CV';
 import Contact from '../components/Contact';
 import Skills from '../components/Skills';
+import WelcomeMessage from '../components/WelcomeMessage';
 import { DesktopWidgets } from '../components/widgets';
 import { useSound } from '../hooks/useSound';
 import { useIsMobile } from '../hooks/useMobile';
@@ -191,8 +192,8 @@ function Home() {
       {/* MenuBar - macOS style top bar (desktop only) */}
       {!isMobile && <MenuBar activeWindow={activeWindowTitle} hackerMode={hackerMode} />}
 
-      {/* Background */}
-      <div className={`absolute inset-0 ${
+      {/* Wallpaper Background */}
+      <div className={`absolute inset-0 ${hackerMode ? "wallpaper-hacker" : "wallpaper-grid"} ${
         hackerMode ? 'bg-gradient-to-br from-[#003300]/10 to-[#00ff00]/5' : 
         'bg-gradient-to-br from-accent-pink/5 to-accent-cyan/5'
       }`} />
@@ -204,6 +205,9 @@ function Home() {
           <DesktopWidgets />
         ) : (
           <>
+            {/* Welcome Message - Show when no windows are open */}
+            {openWindows.length === 0 && <WelcomeMessage hackerMode={hackerMode} />}
+            
             {/* Windows */}
             <AnimatePresence>
               {openWindows.map(window => (

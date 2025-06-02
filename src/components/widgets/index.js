@@ -4,3 +4,4 @@ export { default as SocialFeedWidget } from './SocialFeedWidget';
 export { default as BioStatusWidget } from './BioStatusWidget';
 export { default as MusicPlayerWidget } from './MusicPlayerWidget';
 export { default as GitHubActivityWidget } from './GitHubActivityWidget';
+export { DesktopWidgets } from './DesktopWidgets';
